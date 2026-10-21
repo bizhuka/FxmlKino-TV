@@ -7,7 +7,8 @@ param([string]$Tv = '')
 $ErrorActionPreference = 'Continue'
 $Here    = Split-Path -Parent $MyInvocation.MyCommand.Path
 $SdbExe  = Join-Path $Here 'sdb.exe'
-$Wgt     = Join-Path $Here 'FxmlKino.wgt'
+$Wgt     = Join-Path $Here 'FxmlKino.wgt'          # TVs before Tizen 7 (see tv-common.ps1)
+$Wgt7    = Join-Path $Here 'FxmlKino-tizen7.wgt'   # Tizen 7+ (optional)
 $LastTv  = Join-Path $Here 'last-tv.txt'
 $Devices = Join-Path $Here 'devices.txt'
 . (Join-Path $Here 'tv-common.ps1')
@@ -31,18 +32,26 @@ function Show-NotInCert($duid) {
   Fail 'Телевизор отказался ставить приложение: его ID нет в сертификате, которым подписан этот установщик.'
   Say  "       ID устройства: $duid  (сохранён в $Devices)" Green
   Say  '       Отправьте файл devices.txt тому, кто дал вам установщик. Он добавит ID в свой'
-  Say  '       сертификат и пришлёт новый установщик. Если на ТВ уже стоит «FxmlKino» от'
-  Say  '       кого-то другого, сначала удалите его на телевизоре и попробуйте снова.'
+  Say  '       сертификат и пришлёт новый установщик.'
 }
 
 function Install-On($ip) {
   if (-not $ip) { return }
   $serial = Connect-Tv $ip
   if (-not $serial) { return }
-  $duid = Save-Device $serial $ip
-  if ($duid) { Ok "ID устройства (DUID): $duid" }
-  $r = Install-Wgt $serial $Wgt
-  if ($r -eq 'signature') { Show-NotInCert $duid }
+  $version = Get-TizenVersion $serial
+  $wgt = Select-Wgt $version $Wgt $Wgt7
+  if ($version -ge 7) {
+    # Tizen 7+ checks the device ID against the certificate.
+    $duid = Save-Device $serial $ip
+    Ok "Tizen $version, ID устройства (DUID): $duid"
+    if ($wgt -eq $Wgt) { Warn 'В этом установщике нет пакета для Tizen 7+ (FxmlKino-tizen7.wgt): пробую обычный.' }
+  } else {
+    Ok "Tizen $version: подходит обычный пакет, ID устройства не нужен"
+  }
+  $r = Install-Wgt $serial $wgt
+  if ($r -eq 'signature' -and $version -ge 7) { Show-NotInCert $duid }
+  elseif ($r -eq 'signature') { Fail 'Телевизор отказался принять подпись приложения.' }
   elseif ($r -ne 'ok') { Fail 'Установка не удалась' }
 }
 
@@ -64,7 +73,7 @@ while ($true) {
   if ($last) { Say "  2) Установить ещё раз на последний ТВ ($last)" }
   Say '  3) Установить на ВСЕ готовые телевизоры'
   Say '  4) Найти телевизоры в сети'
-  Say '  5) Показать собранные ID телевизоров (devices.txt)'
+  Say '  5) Показать собранные ID телевизоров Tizen 7+ (devices.txt)'
   Say '  0) Выход'
   switch ((Read-Host '  Выберите').Trim()) {
     '1' { Install-On (Choose-Tv) }

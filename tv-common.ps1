@@ -126,13 +126,43 @@ function Connect-Tv($ip) {
 # Device ID (DUID) the Samsung distributor certificate must list for newer TVs.
 function Get-Duid($serial) { "$(Sdb -s $serial shell 0 getduid | Select-Object -Last 1)".Trim() }
 
+# Tizen version of the TV (5.5 for a 2020 TV), from sdb's capability list; 0 when unknown.
+function Get-TizenVersion($serial) {
+  $line = "$(Sdb -s $serial capability | Where-Object { $_ -match '^platform_version:' } | Select-Object -First 1)"
+  try { [double](($line -replace '^platform_version:', '').Trim()) } catch { 0 }
+}
+
+# Two packages of the same app, signed differently (tv-install.ps1, Make-Portable):
+#   FxmlKino.wgt         Tizen public distributor certificate (as TizenBrew does): any TV before
+#                        Tizen 7 (2017-2021) in Developer Mode, no device IDs needed.
+#   FxmlKino-tizen7.wgt  Samsung certificate: Tizen 7+ (2022+) only accepts these, and only on
+#                        TVs whose device ID the certificate lists.
+function Select-Wgt($version, $publicWgt, $tizen7Wgt) {
+  if ($version -ge 7 -and $tizen7Wgt -and (Test-Path $tizen7Wgt)) { return $tizen7Wgt }
+  return $publicWgt
+}
+
+function Test-Installed($serial) { [bool](Sdb -s $serial shell 0 applist | Where-Object { $_ -match [regex]::Escape($AppId) }) }
+
+function Invoke-AppInstall($serial, $remote) {
+  @(Sdb -s $serial shell 0 vd_appinstall "$PkgId.FxmlKino" $remote)
+}
+
 # Installs a signed .wgt with sdb only (what `tz install` does) and starts the app.
+# A TV refuses an update signed by another author, e.g. the other package variant, so if
+# FxmlKino is already installed and the install fails, it removes FxmlKino and tries once more.
 # Returns 'ok', 'signature' (TV refused the signature) or 'failed'.
 function Install-Wgt($serial, $wgt) {
-  Say "  Установка на $serial ..."
+  Say "  Установка на $serial ($(Split-Path -Leaf $wgt)) ..."
   $remote = '/home/owner/share/tmp/sdk_tools/tmp/FxmlKino.wgt'
   Sdb -s $serial push $wgt $remote | Out-Null
-  $out = @(Sdb -s $serial shell 0 vd_appinstall "$PkgId.FxmlKino" $remote)
+  $out = Invoke-AppInstall $serial $remote
+  if (-not ($out -match 'install completed') -and (Test-Installed $serial)) {
+    $out | Select-Object -Last 3 | ForEach-Object { Say "     $_" }
+    Warn 'FxmlKino уже установлен с другой подписью: удаляю его и ставлю заново (закладки приложения сбросятся).'
+    Sdb -s $serial shell 0 vd_appuninstall $PkgId | Out-Null
+    $out = Invoke-AppInstall $serial $remote
+  }
   if ($out -match 'install completed') {
     Ok 'Установлено'
     Sdb -s $serial shell 0 execute $AppId | Out-Null

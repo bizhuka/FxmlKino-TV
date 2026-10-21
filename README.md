@@ -28,10 +28,11 @@ You need a Windows PC on the same home network as the TV. Nothing else to instal
 
 The installer can also install on all ready TVs at once (option 3).
 
-### If the TV refuses the app
+### TVs from 2022 on (Tizen 7+)
 
-Newer TVs only accept apps whose signing certificate lists their **device ID**. The installer
-then says so and saves the TV's ID in **`devices.txt`** in its folder. Send that file to the author
+TVs from 2017 to 2021 (Tizen 3 to 6.5) install FxmlKino as is. TVs from 2022 on (Tizen 7+)
+only accept apps whose Samsung certificate lists their **device ID**. The installer detects the
+Tizen version and, on Tizen 7+, saves the TV's ID in **`devices.txt`** in its folder. Send that file to the author
 (open an issue in this repository): the ID is added to the certificate and a new version is
 published here.
 
@@ -41,7 +42,8 @@ published here.
 |---|---|
 | `install.bat` | Start here: double-click it. |
 | `install.ps1`, `tv-common.ps1` | The installer: finds Samsung TVs on the network, checks Developer Mode, installs the app, starts it, and records device IDs. |
-| `FxmlKino.wgt` | The app, signed for Samsung TVs. |
+| `FxmlKino.wgt` | The app for TVs before Tizen 7 (2017-2021), signed the way [TizenBrew](https://github.com/reisxd/TizenBrew) signs its build for them. |
+| `FxmlKino-tizen7.wgt` | The app for Tizen 7+ (2022+), signed with a Samsung certificate for the listed TVs. |
 | `sdb.exe` | Samsung's Tizen SDK device tool, which the installer uses to talk to the TV. |
 | `README.txt` | Short instructions (Russian). |
 
