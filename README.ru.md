@@ -14,6 +14,9 @@
 
 ## Установка на телевизор
 
+Уже пользуетесь [TizenBrew](https://github.com/reisxd/TizenBrew)? Тогда добавьте FxmlKino прямо в
+него, без компьютера: см. [FxmlKino-TizenBrew](https://github.com/bizhuka/FxmlKino-TizenBrew).
+
 Нужен компьютер с Windows в той же домашней сети, что и телевизор. Больше ничего ставить не надо.
 
 1. **Скачайте** этот репозиторий: **Code → Download ZIP**, затем распакуйте.

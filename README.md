@@ -14,6 +14,9 @@ Tested on a UE65TU7500 (2020, Tizen 5.5).
 
 ## Installing on a TV
 
+Already using [TizenBrew](https://github.com/reisxd/TizenBrew)? Add FxmlKino there instead, no PC
+needed: see [FxmlKino-TizenBrew](https://github.com/bizhuka/FxmlKino-TizenBrew).
+
 You need a Windows PC on the same home network as the TV. Nothing else to install.
 
 1. **Download** this repository: **Code → Download ZIP**, then unzip it.
