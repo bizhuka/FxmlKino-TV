@@ -47,7 +47,7 @@ function Install-On($ip) {
     Ok "Tizen $version, ID устройства (DUID): $duid"
     if ($wgt -eq $Wgt) { Warn 'В этом установщике нет пакета для Tizen 7+ (FxmlKino-tizen7.wgt): пробую обычный.' }
   } else {
-    Ok "Tizen $version: подходит обычный пакет, ID устройства не нужен"
+    Ok "Tizen ${version}: подходит обычный пакет, ID устройства не нужен"
   }
   $r = Install-Wgt $serial $wgt
   if ($r -eq 'signature' -and $version -ge 7) { Show-NotInCert $duid }
