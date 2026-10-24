@@ -1,9 +1,10 @@
-# FxmlKino для телевизоров Samsung
+# FxmlKino для телевизоров Samsung и LG
 
 [English version](README.md)
 
 **FxmlKino** показывает два киносайта, [HDRezka](https://kz.rezka.biz/) и [Kinogo](https://sim.kinogo.tm/),
-на телевизорах Samsung Smart TV в виде страниц [Fork browser](https://wiki.forkbrowser.top/wiki/FXML) (FXML).
+на телевизорах Samsung (Tizen) и LG (webOS) в виде страниц [Fork browser](https://wiki.forkbrowser.top/wiki/FXML)
+(FXML). Телевизоры LG: см. [Телевизоры LG (webOS)](#телевизоры-lg-webos).
 
 - Без рекламы и без регистрации.
 - Выбор сезона, серии и озвучки, а также качества вплоть до 1080p, как на сайте.
@@ -12,7 +13,7 @@
 
 Проверено на UE65TU7500 (2020, Tizen 5.5).
 
-## Установка на телевизор
+## Установка на телевизор Samsung
 
 Есть три способа. Для любого из них один раз нужен **режим разработчика** на телевизоре (см.
 [Режим разработчика](#режим-разработчика) ниже).
@@ -66,6 +67,42 @@ Module** и введите `bizhuka/FxmlKino-TizenBrew`. Подробнее:
    ставите. В Windows его показывает команда `ipconfig` (строка «IPv4-адрес»).
 4. Перезагрузите ТВ: держите кнопку питания, пока он не выключится и не включится снова.
 
+## Телевизоры LG (webOS)
+
+`FxmlKino.ipk` (в этом репозитории и в каждом [релизе](https://github.com/bizhuka/FxmlKino-TV/releases/latest))
+— то же приложение для телевизоров LG на webOS, с тем же парсером на самом телевизоре.
+
+1. **Режим разработчика на телевизоре** (один раз):
+   1. Зарегистрируйтесь на [сайте разработчиков LG webOS TV](https://webostv.developer.lge.com/).
+   2. На телевизоре установите приложение **Developer Mode** из LG Content Store, откройте его и
+      войдите под этой учётной записью.
+   3. Включите **Dev Mode Status** — телевизор перезагрузится. Снова откройте приложение и включите
+      **Key Server**: внизу слева появится **пароль** (passphrase) из 6 символов.
+2. **Установка** через [webOS Dev Manager](https://github.com/webosbrew/dev-manager-desktop/releases/latest)
+   (Windows, macOS, Linux):
+   1. Добавьте телевизор: его IP (ТВ: Настройки → Общие → Сеть → Состояние сети) и пароль.
+   2. Откройте **Apps**, установите `FxmlKino.ipk` и запустите **FxmlKino** на телевизоре.
+3. Когда парсер работает, на заставке внизу слева видно `FXML: сервис работает`, затем открывается
+   портал «FXML Кино».
+
+Приложения из режима разработчика остаются на телевизоре, пока идёт сессия Developer Mode (до 1000
+часов). Время от времени открывайте Developer Mode и нажимайте **EXTEND**. Если сессия закончится,
+телевизор удалит приложение — после повторного включения режима разработчика установите его снова.
+На телевизоре с root и [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel)
+приложения остаются навсегда: установите `.ipk` через него.
+
+<details>
+<summary>Через командную строку вместо Dev Manager (webOS CLI от LG)</summary>
+
+```
+npm install -g @webos-tools/cli
+ares-setup-device -a lgtv -i "host=<IP-телевизора>" -i "port=9922" -i "username=prisoner"
+ares-novacom --device lgtv --getkey          # введите пароль (passphrase)
+ares-install --device lgtv FxmlKino.ipk
+ares-launch --device lgtv com.fxmlkino.tv
+```
+</details>
+
 ## Файлы
 
 | Файл | Назначение |
@@ -74,6 +111,7 @@ Module** и введите `bizhuka/FxmlKino-TizenBrew`. Подробнее:
 | `install.ps1`, `tv-common.ps1` | Код установщика: находит телевизоры Samsung в сети, проверяет режим разработчика, ставит приложение, запускает его и записывает ID устройств. |
 | `FxmlKino.wgt` | Приложение для ТВ до Tizen 7 (2017–2021), подписанное так же, как [TizenBrew](https://github.com/reisxd/TizenBrew) подписывает свою сборку для них. Для ТВ 2022+ TizenBrew Installer переподписывает его сам. Также прикреплено к каждому [релизу](https://github.com/bizhuka/FxmlKino-TV/releases). |
 | `FxmlKino-tizen7.wgt` | Приложение для Tizen 7+ (2022+), подписанное сертификатом Samsung автора для перечисленных в нём ТВ. |
+| `FxmlKino.ipk` | Приложение для телевизоров LG на webOS (см. [Телевизоры LG](#телевизоры-lg-webos)). |
 | `sdb.exe` | Утилита Samsung из Tizen SDK, через которую установщик связывается с ТВ. |
 | `README.txt` | Краткая инструкция. |
 

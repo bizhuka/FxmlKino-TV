@@ -21,6 +21,10 @@ bizhuka/FxmlKino-TV. Режим разработчика (шаг 1 ниже) н�
 поставьте через TizenBrew Installer (см. выше) или отправьте файл devices.txt из этой папки тому,
 кто дал вам установщик.
 
+Телевизоры LG (webOS): этот установщик только для Samsung. Для LG — файл FxmlKino.ipk из релиза
+https://github.com/bizhuka/FxmlKino-TV/releases/latest, инструкция в README.ru.md
+(https://github.com/bizhuka/FxmlKino-TV/blob/main/README.ru.md#телевизоры-lg-webos).
+
 Файлы: install.bat / install.ps1 (установщик), tv-common.ps1 (общий код), sdb.exe (утилита Samsung
 для связи с ТВ), FxmlKino.wgt (приложение для ТВ до Tizen 7),
 FxmlKino-tizen7.wgt (приложение для Tizen 7+).

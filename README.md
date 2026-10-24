@@ -1,9 +1,10 @@
-# FxmlKino for Samsung TVs
+# FxmlKino for Samsung and LG TVs
 
 [Русская версия](README.ru.md)
 
 **FxmlKino** shows two movie sites, [HDRezka](https://kz.rezka.biz/) and [Kinogo](https://sim.kinogo.tm/),
-on Samsung Smart TVs as [Fork browser](https://wiki.forkbrowser.top/wiki/FXML) (FXML) pages.
+on Samsung (Tizen) and LG (webOS) Smart TVs as [Fork browser](https://wiki.forkbrowser.top/wiki/FXML)
+(FXML) pages. LG TVs: see [LG TVs (webOS)](#lg-tvs-webos).
 
 - No ads and no account needed.
 - Pick the season, episode and voice-over, and the quality up to 1080p, as on the site.
@@ -12,7 +13,7 @@ on Samsung Smart TVs as [Fork browser](https://wiki.forkbrowser.top/wiki/FXML) (
 
 Tested on a UE65TU7500 (2020, Tizen 5.5).
 
-## Installing on a TV
+## Installing on a Samsung TV
 
 There are three ways. All of them need **Developer Mode** on the TV once (see
 [Developer Mode](#developer-mode) below).
@@ -64,6 +65,42 @@ Once per TV:
    install from. On Windows, `ipconfig` shows it ("IPv4 Address").
 4. Restart the TV: hold the power button until it turns off and on again.
 
+## LG TVs (webOS)
+
+`FxmlKino.ipk` (in this repository and in each [release](https://github.com/bizhuka/FxmlKino-TV/releases/latest))
+is the same app for LG webOS TVs, with the same on-TV parser.
+
+1. **Developer Mode on the TV** (once):
+   1. Create an account on the [LG webOS TV developer site](https://webostv.developer.lge.com/).
+   2. On the TV, install **Developer Mode** from the LG Content Store, open it and sign in with
+      that account.
+   3. Turn **Dev Mode Status** on; the TV restarts. Open the app again and turn **Key Server** on.
+      It shows a 6-character **passphrase** at the bottom left.
+2. **Install** with [webOS Dev Manager](https://github.com/webosbrew/dev-manager-desktop/releases/latest)
+   (Windows, macOS, Linux):
+   1. Add the TV: its IP (TV: Settings → General → Network → Network Status) and the passphrase.
+   2. Open **Apps**, install `FxmlKino.ipk`, then start **FxmlKino** on the TV.
+3. The splash screen shows `FXML: сервис работает` at the bottom left when the parser runs, and the
+   FXML Кино portal opens.
+
+Developer Mode apps stay installed while the Developer Mode session runs (up to 1000 hours).
+Open the Developer Mode app and press **EXTEND** from time to time. If the session runs out, the
+TV removes the app; install it again after re-enabling Developer Mode. On a rooted TV with
+[Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel), apps stay permanently:
+install the `.ipk` there.
+
+<details>
+<summary>Command line instead of Dev Manager (LG's webOS CLI)</summary>
+
+```
+npm install -g @webos-tools/cli
+ares-setup-device -a lgtv -i "host=<TV-IP>" -i "port=9922" -i "username=prisoner"
+ares-novacom --device lgtv --getkey          # enter the passphrase
+ares-install --device lgtv FxmlKino.ipk
+ares-launch --device lgtv com.fxmlkino.tv
+```
+</details>
+
 ## Files
 
 | File | Purpose |
@@ -72,6 +109,7 @@ Once per TV:
 | `install.ps1`, `tv-common.ps1` | The installer's code: finds Samsung TVs on the network, checks Developer Mode, installs the app, starts it, and records device IDs. |
 | `FxmlKino.wgt` | The app for TVs before Tizen 7 (2017–2021), signed the way [TizenBrew](https://github.com/reisxd/TizenBrew) signs its build for them. TizenBrew Installer re-signs it for 2022+ TVs. Also attached to each [release](https://github.com/bizhuka/FxmlKino-TV/releases). |
 | `FxmlKino-tizen7.wgt` | The app for Tizen 7+ (2022+), signed with the author's Samsung certificate for the TVs it lists. |
+| `FxmlKino.ipk` | The app for LG webOS TVs (see [LG TVs](#lg-tvs-webos)). |
 | `sdb.exe` | Samsung's Tizen SDK device tool, which the installer uses to talk to the TV. |
 | `README.txt` | Short instructions (Russian). |
 
