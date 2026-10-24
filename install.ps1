@@ -1,6 +1,6 @@
 ﻿# Portable FxmlKino installer: installs the already-signed FxmlKino.wgt on Samsung TVs with
 # sdb.exe only. No VS Code, no Tizen extension, no certificate needed on this PC.
-# Made by tools\tv-install.ps1 (option 7) on the PC that signs the app. Windows PowerShell 5.1.
+# Made by tools\tv-install.ps1 (-Portable) on the PC that signs the app. Windows PowerShell 5.1.
 # Saved as UTF-8 with BOM: PowerShell 5.1 misreads Cyrillic otherwise.
 param([string]$Tv = '')
 
