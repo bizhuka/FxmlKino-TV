@@ -14,39 +14,64 @@ Tested on a UE65TU7500 (2020, Tizen 5.5).
 
 ## Installing on a TV
 
-Already using [TizenBrew](https://github.com/reisxd/TizenBrew)? Add FxmlKino there instead, no PC
-needed: see [FxmlKino-TizenBrew](https://github.com/bizhuka/FxmlKino-TizenBrew).
+There are three ways. All of them need **Developer Mode** on the TV once (see
+[Developer Mode](#developer-mode) below).
 
-You need a Windows PC on the same home network as the TV. Nothing else to install.
+| Way | TVs | Notes |
+|---|---|---|
+| **1. TizenBrew Installer** (recommended) | any Samsung TV from 2017 on, including 2022+ | One program on your PC or Android phone; it creates the certificate for **your** TV itself. |
+| 2. TizenBrew module | any TV that already has TizenBrew | No PC needed, no signing. |
+| 3. This repository's `install.bat` | 2017–2021 (Tizen 3–6.5); 2022+ only if listed in the author's certificate | Windows only. |
+
+### 1. TizenBrew Installer (recommended)
+
+1. Turn on [Developer Mode](#developer-mode) with your PC's IP as **Host PC IP**.
+2. Download [TizenBrew Installer](https://github.com/reisxd/TizenBrewInstaller/releases/latest) for
+   your system and run it. Connect it to your TV.
+3. Choose to install an app **from GitHub** and enter:
+   ```
+   bizhuka/FxmlKino-TV
+   ```
+   It downloads `FxmlKino.wgt` from this repository's latest
+   [release](https://github.com/bizhuka/FxmlKino-TV/releases/latest) and installs it.
+4. On TVs from 2022 on (Tizen 7+) it asks you to sign in to a Samsung account and creates a
+   certificate for your TV. Follow the on-screen steps.
+
+### 2. TizenBrew module
+
+If TizenBrew is already on the TV: press the **green** button in TizenBrew, choose **Add GitHub
+Module** and enter `bizhuka/FxmlKino-TizenBrew`. See
+[FxmlKino-TizenBrew](https://github.com/bizhuka/FxmlKino-TizenBrew).
+
+### 3. Windows installer from this repository
 
 1. **Download** this repository: **Code → Download ZIP**, then unzip it.
-2. **Turn on Developer Mode on the TV** (once per TV):
-   1. Open **Apps** (Home → Apps).
-   2. Type **1 2 3 4 5** on the remote. On a Smart Remote, press the **123** button for digits.
-   3. Set **Developer mode** to **On** and enter **Host PC IP**: your PC's IP. The installer shows
-      it at the top of its menu.
-   4. Restart the TV: hold the power button until it turns off and on again.
-3. **On the PC**, double-click **`install.bat`** in the unzipped folder. Choose **1**, then your TV.
-   The installer finds the TV, installs **FxmlKino** and starts it.
+2. Turn on [Developer Mode](#developer-mode) with your PC's IP as **Host PC IP**.
+3. Double-click **`install.bat`** in the unzipped folder. Choose **1**, then your TV. The installer
+   finds the TV, installs **FxmlKino** and starts it. Option 3 installs on all ready TVs at once.
 
-The installer can also install on all ready TVs at once (option 3).
+TVs from 2017 to 2021 (Tizen 3 to 6.5) install it as is. TVs from 2022 on (Tizen 7+) only accept
+it if their **device ID** is in the author's Samsung certificate. The installer saves the TV's ID in
+**`devices.txt`**: send it to the author (open an issue here), or use way 1 instead.
 
-### TVs from 2022 on (Tizen 7+)
+### Developer Mode
 
-TVs from 2017 to 2021 (Tizen 3 to 6.5) install FxmlKino as is. TVs from 2022 on (Tizen 7+)
-only accept apps whose Samsung certificate lists their **device ID**. The installer detects the
-Tizen version and, on Tizen 7+, saves the TV's ID in **`devices.txt`** in its folder. Send that file to the author
-(open an issue in this repository): the ID is added to the certificate and a new version is
-published here.
+Once per TV:
+
+1. Open **Apps** (Home → Apps).
+2. Type **1 2 3 4 5** on the remote. On a Smart Remote, press the **123** button for digits.
+3. Set **Developer mode** to **On** and enter **Host PC IP**: the IP of the PC (or phone) you
+   install from. On Windows, `ipconfig` shows it ("IPv4 Address").
+4. Restart the TV: hold the power button until it turns off and on again.
 
 ## Files
 
 | File | Purpose |
 |---|---|
-| `install.bat` | Start here: double-click it. |
-| `install.ps1`, `tv-common.ps1` | The installer: finds Samsung TVs on the network, checks Developer Mode, installs the app, starts it, and records device IDs. |
-| `FxmlKino.wgt` | The app for TVs before Tizen 7 (2017-2021), signed the way [TizenBrew](https://github.com/reisxd/TizenBrew) signs its build for them. |
-| `FxmlKino-tizen7.wgt` | The app for Tizen 7+ (2022+), signed with a Samsung certificate for the listed TVs. |
+| `install.bat` | The Windows installer (way 3): double-click it. |
+| `install.ps1`, `tv-common.ps1` | The installer's code: finds Samsung TVs on the network, checks Developer Mode, installs the app, starts it, and records device IDs. |
+| `FxmlKino.wgt` | The app for TVs before Tizen 7 (2017–2021), signed the way [TizenBrew](https://github.com/reisxd/TizenBrew) signs its build for them. TizenBrew Installer re-signs it for 2022+ TVs. Also attached to each [release](https://github.com/bizhuka/FxmlKino-TV/releases). |
+| `FxmlKino-tizen7.wgt` | The app for Tizen 7+ (2022+), signed with the author's Samsung certificate for the TVs it lists. |
 | `sdb.exe` | Samsung's Tizen SDK device tool, which the installer uses to talk to the TV. |
 | `README.txt` | Short instructions (Russian). |
 

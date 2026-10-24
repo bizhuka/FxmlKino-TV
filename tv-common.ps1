@@ -160,7 +160,9 @@ function Install-Wgt($serial, $wgt) {
   if (-not ($out -match 'install completed') -and (Test-Installed $serial)) {
     $out | Select-Object -Last 3 | ForEach-Object { Say "     $_" }
     Warn 'FxmlKino уже установлен с другой подписью: удаляю его и ставлю заново (закладки приложения сбросятся).'
+    # The UE65TU7500 uninstalls by package ID, the Tizen 10 emulator only by app ID.
     Sdb -s $serial shell 0 vd_appuninstall $PkgId | Out-Null
+    if (Test-Installed $serial) { Sdb -s $serial shell 0 vd_appuninstall $AppId | Out-Null }
     $out = Invoke-AppInstall $serial $remote
   }
   if ($out -match 'install completed') {
