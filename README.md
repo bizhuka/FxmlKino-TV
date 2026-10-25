@@ -10,6 +10,8 @@ on Samsung (Tizen) and LG (webOS) Smart TVs as [Fork browser](https://wiki.forkb
 - Pick the season, episode and voice-over, and the quality up to 1080p, as on the site.
 - The sites are read **by the TV itself**: once installed, it needs no PC and no server. If the
   sites open on your computer, they should work on your TV too.
+- **Being tested:** QINO ТВ, the live TV channels of [qino.live](https://qino.live/). It needs a
+  qino.live account; you log in with an SMS code, in a phone or PC browser or on the TV.
 
 Tested on a UE65TU7500 (2020, Tizen 5.5).
 
