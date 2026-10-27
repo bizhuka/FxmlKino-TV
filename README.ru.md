@@ -1,10 +1,12 @@
-# FxmlKino для телевизоров Samsung и LG
+# FxmlKino для телевизоров Samsung, LG и Android
 
 [English version](README.md)
 
 **FxmlKino** показывает два киносайта, [HDRezka](https://kz.rezka.biz/) и [Kinogo](https://sim.kinogo.tm/),
-на телевизорах Samsung (Tizen) и LG (webOS) в виде страниц [Fork browser](https://wiki.forkbrowser.top/wiki/FXML)
-(FXML). Телевизоры LG: см. [Телевизоры LG (webOS)](#телевизоры-lg-webos).
+на телевизорах Samsung (Tizen) и LG (webOS), а также на Android TV, ТВ-приставках и телефонах, в
+виде страниц [Fork browser](https://wiki.forkbrowser.top/wiki/FXML) (FXML). Телевизоры LG: см.
+[Телевизоры LG (webOS)](#телевизоры-lg-webos). Android (в тестировании): см.
+[Android TV, ТВ-приставки и телефоны](#android-tv-тв-приставки-и-телефоны-в-тестировании).
 
 - Без рекламы и без регистрации.
 - Выбор сезона, серии и озвучки, а также качества вплоть до 1080p, как на сайте.
@@ -105,6 +107,37 @@ ares-launch --device lgtv com.fxmlkino.tv
 ```
 </details>
 
+## Android TV, ТВ-приставки и телефоны (в тестировании)
+
+`FxmlKino.apk` (в каждом [релизе](https://github.com/bizhuka/FxmlKino-TV/releases/latest)) — это
+[Fork browser](https://wiki.forkbrowser.top/) для Android со встроенным FxmlKino: парсер работает
+внутри приложения, а портал FXML Кино открывается при запуске. Нужен Android 5.0 или новее.
+Ставится рядом с Fork browser, если он у вас есть, и не заменяет его.
+
+**В тестировании:** пока проверено на эмуляторе Android TV. Будем рады отзывам.
+
+**Телефон или планшет:**
+1. На телефоне скачайте [`FxmlKino.apk`](https://github.com/bizhuka/FxmlKino-TV/releases/latest/download/FxmlKino.apk).
+2. Откройте файл. Когда Android спросит, разрешите установку приложений из этого источника
+   (браузера или файлового менеджера), затем установите.
+3. Откройте **FxmlKino**.
+
+**Android TV или ТВ-приставка** (любой способ):
+- Приложение **Downloader** (от AFTVnews, есть в Google Play на ТВ): введите
+  `https://github.com/bizhuka/FxmlKino-TV/releases/latest/download/FxmlKino.apk`, установите и разрешите Downloader устанавливать приложения, когда спросит.
+- Скопируйте `FxmlKino.apk` на флешку и откройте его на ТВ файловым менеджером (например,
+  X-plore или File Commander).
+- С компьютера через `adb`: на ТВ включите «Для разработчиков» → отладку по сети (USB), затем
+  `adb connect <IP-ТВ>:5555` и `adb install FxmlKino.apk`.
+
+Полезно знать:
+- Вход в QINO ТВ с телефона или компьютера в той же сети Wi-Fi: `http://<IP-устройства>:8787/qino/login`
+  (адрес показан на странице входа QINO в приложении).
+- Собственные сообщения Fork browser (подсказки при первом запуске, окно пожертвований) появляются
+  как в Fork browser.
+- Если Fork browser предложит обновление, оно поставит оригинальный Fork browser рядом с FxmlKino.
+  Обновления FxmlKino выходят в релизах этого репозитория.
+
 ## Файлы
 
 | Файл | Назначение |
@@ -114,6 +147,7 @@ ares-launch --device lgtv com.fxmlkino.tv
 | `FxmlKino.wgt` | Приложение для ТВ до Tizen 7 (2017–2021), подписанное так же, как [TizenBrew](https://github.com/reisxd/TizenBrew) подписывает свою сборку для них. Для ТВ 2022+ TizenBrew Installer переподписывает его сам. Также прикреплено к каждому [релизу](https://github.com/bizhuka/FxmlKino-TV/releases). |
 | `FxmlKino-tizen7.wgt` | Приложение для Tizen 7+ (2022+), подписанное сертификатом Samsung автора для перечисленных в нём ТВ. |
 | `FxmlKino.ipk` | Приложение для телевизоров LG на webOS (см. [Телевизоры LG](#телевизоры-lg-webos)). |
+| `FxmlKino.apk` | Только в релизах (не в этом репозитории): приложение для Android, в тестировании (см. [Android](#android-tv-тв-приставки-и-телефоны-в-тестировании)). |
 | `sdb.exe` | Утилита Samsung из Tizen SDK, через которую установщик связывается с ТВ. |
 | `README.txt` | Краткая инструкция. |
 
