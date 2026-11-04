@@ -5,15 +5,18 @@
 **FxmlKino** shows two movie sites, [HDRezka](https://kz.rezka.biz/) and [Kinogo](https://sim.kinogo.tm/),
 on Samsung (Tizen) and LG (webOS) Smart TVs, and on Android TV, TV boxes and phones, as
 [Fork browser](https://wiki.forkbrowser.top/wiki/FXML) (FXML) pages. LG TVs: see
-[LG TVs (webOS)](#lg-tvs-webos). Android (being tested): see
-[Android TV, TV boxes and phones](#android-tv-tv-boxes-and-phones-being-tested).
+[LG TVs (webOS)](#lg-tvs-webos). Android: see
+[Android TV, TV boxes and phones](#android-tv-tv-boxes-and-phones).
 
 - No ads and no account needed.
 - Pick the season, episode and voice-over, and the quality up to 1080p, as on the site.
 - The sites are read **by the TV itself**: once installed, it needs no PC and no server. If the
   sites open on your computer, they should work on your TV too.
-- QINO ТВ, the live TV channels of [qino.live](https://qino.live/). It needs a qino.live account; you
+- QINO ТВ, the live TV channels, films, series and TV recordings of [qino.live](https://qino.live/). It needs a qino.live account; you
   log in with an SMS code, in a phone or PC browser or on the TV.
+- Kazakhtelecom TV, the channels, films and series of [tv.telecom.kz](https://tv.telecom.kz/). It needs
+  a Kazakhtelecom account; you log in with a session code from a PC, see
+  [Kazakhtelecom TV: the session code](#kazakhtelecom-tv-the-session-code).
 
 Tested on a UE65TU7500 (2020, Tizen 5.5).
 
@@ -105,14 +108,12 @@ ares-launch --device lgtv com.fxmlkino.tv
 ```
 </details>
 
-## Android TV, TV boxes and phones (being tested)
+## Android TV, TV boxes and phones
 
 `FxmlKino.apk` (in each [release](https://github.com/bizhuka/FxmlKino-TV/releases/latest)) is
 [Fork browser](https://wiki.forkbrowser.top/) for Android with FxmlKino built in: the parser runs
 inside the app, and the FXML Кино portal opens on start. Android 5.0 or newer. It installs next to
 Fork browser, if you have it, and doesn't replace it.
-
-**Being tested:** so far checked on the Android TV emulator. Reports are welcome.
 
 **Phone or tablet:**
 1. On the phone, download [`FxmlKino.apk`](https://github.com/bizhuka/FxmlKino-TV/releases/latest/download/FxmlKino.apk).
@@ -135,6 +136,40 @@ Good to know:
 - If Fork browser offers an update, it installs the original Fork browser next to FxmlKino.
   FxmlKino updates come from this repository's releases.
 
+## Kazakhtelecom TV: the session code
+
+To log in to Kazakhtelecom TV, copy your login from a PC browser to the TV. The PC must be on the same
+network as the TV.
+
+1. On the PC, open [tv.telecom.kz](https://tv.telecom.kz/) and log in to your account.
+2. Press **F12** to open the developer tools and go to the **Application** tab (Firefox: **Storage**).
+   If you can't see the tab, look under **»**.
+3. On the left, open **Cookies** → `https://tv.telecom.kz`.
+4. Type `feCookie` in the **Filter** box at the top, double-click the value in the row that remains
+   and press **Ctrl+C**.
+
+   ![Where to find feCookie in the developer tools](kt-session-code.png)
+
+5. On the TV, open **Казахтелеком ТВ** → **Войти**. The page shows an address such as
+   `http://192.168.1.10:8787/kt/login`. Open that address in the PC browser.
+6. Paste the value into **Код сессии**, press **Сохранить**, then press **Я вошёл** on the TV.
+
+Good to know:
+- The code gives access to your account, so don't share it or post it anywhere.
+- It stops working if you press **Выйти** on tv.telecom.kz or the session expires. Then repeat these
+  steps.
+- For a second TV, open its login page and paste the same code. The first TV's login page shows it
+  with a **Скопировать код** button.
+- **Выйти** in FxmlKino removes the code from this TV only. You stay logged in on the site and on other TVs.
+
+What plays:
+- Only channels and titles your subscription includes. Some channels play only on a Kazakhtelecom
+  home internet connection; the others show the site's message.
+- Titles protected by DRM, including Disney and Okko, don't play in Fork browser. They
+  show a message instead. Watch them on the site or in the provider's app.
+- TV recordings play from the start of the broadcast, but you can't rewind them, and they run on into
+  the next programme.
+
 ## Files
 
 | File | Purpose |
@@ -144,7 +179,7 @@ Good to know:
 | `FxmlKino.wgt` | The app for TVs before Tizen 7 (2017–2021), signed the way [TizenBrew](https://github.com/reisxd/TizenBrew) signs its build for them. TizenBrew Installer re-signs it for 2022+ TVs. Also attached to each [release](https://github.com/bizhuka/FxmlKino-TV/releases). |
 | `FxmlKino-tizen7.wgt` | The app for Tizen 7+ (2022+), signed with the author's Samsung certificate for the TVs it lists. |
 | `FxmlKino.ipk` | The app for LG webOS TVs (see [LG TVs](#lg-tvs-webos)). |
-| `FxmlKino.apk` | Release only (not in this repository): the Android app, being tested (see [Android](#android-tv-tv-boxes-and-phones-being-tested)). |
+| `FxmlKino.apk` | Release only (not in this repository): the Android app (see [Android](#android-tv-tv-boxes-and-phones)). |
 | `sdb.exe` | Samsung's Tizen SDK device tool, which the installer uses to talk to the TV. |
 | `README.txt` | Short instructions (Russian). |
 

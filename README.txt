@@ -25,9 +25,9 @@ bizhuka/FxmlKino-TV. Режим разработчика (шаг 1 ниже) н�
 https://github.com/bizhuka/FxmlKino-TV/releases/latest, инструкция в README.ru.md
 (https://github.com/bizhuka/FxmlKino-TV/blob/main/README.ru.md#телевизоры-lg-webos).
 
-Android TV, ТВ-приставки, телефоны (в тестировании): файл FxmlKino.apk из того же релиза,
+Android TV, ТВ-приставки, телефоны: файл FxmlKino.apk из того же релиза,
 инструкция в README.ru.md
-(https://github.com/bizhuka/FxmlKino-TV/blob/main/README.ru.md#android-tv-тв-приставки-и-телефоны-в-тестировании).
+(https://github.com/bizhuka/FxmlKino-TV/blob/main/README.ru.md#android-tv-тв-приставки-и-телефоны).
 
 Файлы: install.bat / install.ps1 (установщик), tv-common.ps1 (общий код), sdb.exe (утилита Samsung
 для связи с ТВ), FxmlKino.wgt (приложение для ТВ до Tizen 7),
