@@ -9,7 +9,10 @@ on Samsung (Tizen) and LG (webOS) Smart TVs, and on Android TV, TV boxes and pho
 [Android TV, TV boxes and phones](#android-tv-tv-boxes-and-phones).
 
 - No ads and no account needed.
-- Pick the season, episode and voice-over, and the quality up to 1080p, as on the site.
+- Pick the season and the voice-over; its episodes then play one after another. Quality up to 1080p:
+  videos start at Fork browser's **Settings → Video & Audio → Video quality** (720p by default) and can
+  be switched in the player.
+- Everything Fork browser needs is inside the app: it no longer loads its engine from Fork's servers.
 - The sites are read **by the TV itself**: once installed, it needs no PC and no server. If the
   sites open on your computer, they should work on your TV too.
 - QINO ТВ, the live TV channels, films, series and TV recordings of [qino.live](https://qino.live/). It needs a qino.live account; you
