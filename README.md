@@ -12,6 +12,8 @@ on Samsung (Tizen) and LG (webOS) Smart TVs, and on Android TV, TV boxes and pho
 - Pick the season and the voice-over; its episodes then play one after another. Quality up to 1080p:
   videos start at Fork browser's **Settings → Video & Audio → Video quality** (720p by default) and can
   be switched in the player.
+- Episodes start quickly: the TV keeps what it has read from the sites for a while and prepares the
+  next episode while one plays.
 - Everything Fork browser needs is inside the app: it no longer loads its engine from Fork's servers.
 - The sites are read **by the TV itself**: once installed, it needs no PC and no server. If the
   sites open on your computer, they should work on your TV too.
