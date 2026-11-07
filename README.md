@@ -15,6 +15,10 @@ on Samsung (Tizen) and LG (webOS) Smart TVs, and on Android TV, TV boxes and pho
 - Episodes start quickly: the TV keeps what it has read from the sites for a while and prepares the
   next episode while one plays.
 - Everything Fork browser needs is inside the app: it no longer loads its engine from Fork's servers.
+- Torrents (magnet links, `.torrent` files) on LG and Android: Fork browser's **Fork TorrServe**
+  works there. When a torrent needs it, choose **Установить Fork Torrserve**: the app downloads the
+  official [TorrServer](https://github.com/YouROK/TorrServer) (about 60 MB) once and runs it while
+  FxmlKino is open. It isn't packed into the app, so the app stays small. Not on Samsung yet.
 - The sites are read **by the TV itself**: once installed, it needs no PC and no server. If the
   sites open on your computer, they should work on your TV too.
 - QINO ТВ, the live TV channels, films, series and TV recordings of [qino.live](https://qino.live/). It needs a qino.live account; you
@@ -101,6 +105,9 @@ TV removes the app; install it again after re-enabling Developer Mode. On a root
 [Homebrew Channel](https://github.com/webosbrew/webos-homebrew-channel), apps stay permanently:
 install the `.ipk` there.
 
+Fork TorrServe on LG: TorrServer is kept in the TV's internal storage, so app updates don't download
+it again. It stops 30 seconds after FxmlKino closes. Settings → **TORRSERVE_IP** turns it off or deletes it.
+
 <details>
 <summary>Command line instead of Dev Manager (LG's webOS CLI)</summary>
 
@@ -140,6 +147,9 @@ Good to know:
 - Fork browser's own messages (first-run hints, a donation window) appear as in Fork browser.
 - If Fork browser offers an update, it installs the original Fork browser next to FxmlKino.
   FxmlKino updates come from this repository's releases.
+- Fork TorrServe: TorrServer runs while FxmlKino is on screen and stops a minute after you leave the
+  app, unless a torrent is still playing. Settings → **TORRSERVE_IP** turns it off or deletes it.
+- On Android 13 and newer, FxmlKino may ask to send notifications. It works either way.
 
 ## Kazakhtelecom TV: the session code
 
