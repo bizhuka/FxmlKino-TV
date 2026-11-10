@@ -185,6 +185,20 @@ What plays:
 - TV recordings play from the start of the broadcast, but you can't rewind them, and they run on into
   the next programme.
 
+## If a video doesn't start
+
+Since 1.3.6 (Samsung and LG) the app shows the reason for a player error in a red line at the bottom
+of the screen and keeps a journal. To report an error:
+
+1. Start the video, wait for the error and take a photo of the screen with the red line.
+2. Open **«Журнал»** on the «FXML Кино» portal. Its first line shows an address like
+   `http://<TV IP>:8787/log.txt`.
+3. Open that address in a browser on a phone or PC (on the same network as the TV), copy the text
+   and attach it to your report together with the TV model.
+
+The journal is kept only in the TV's memory and is gone once the TV is switched off. It holds the
+addresses of the pages you opened and the sites' answers, no logins or codes.
+
 ## Files
 
 | File | Purpose |
