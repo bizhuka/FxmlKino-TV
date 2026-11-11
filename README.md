@@ -15,10 +15,15 @@ on Samsung (Tizen) and LG (webOS) Smart TVs, and on Android TV, TV boxes and pho
 - Episodes start quickly: the TV keeps what it has read from the sites for a while and prepares the
   next episode while one plays.
 - Everything Fork browser needs is inside the app: it no longer loads its engine from Fork's servers.
-- Torrents (magnet links, `.torrent` files) on LG and Android: Fork browser's **Fork TorrServe**
-  works there. When a torrent needs it, choose **Установить Fork Torrserve**: the app downloads the
-  official [TorrServer](https://github.com/YouROK/TorrServer) (about 60 MB) once and runs it while
-  FxmlKino is open. It isn't packed into the app, so the app stays small. Not on Samsung yet.
+- Torrents (magnet links, `.torrent` files): Fork browser's **Fork TorrServe** works on all three.
+  When a torrent needs it, choose **Установить Fork Torrserve**.
+  - LG and Android: the app downloads the official [TorrServer](https://github.com/YouROK/TorrServer)
+    (about 60 MB) once and runs it while FxmlKino is open. It isn't packed into the app, so the app
+    stays small.
+  - Samsung (since 1.3.9): a Samsung TV doesn't let an app run TorrServer, so FxmlKino has a torrent
+    client of its own that answers the same way. Nothing is downloaded for it and it switches on at
+    once. The film is kept in the TV's memory only while you watch (nothing is written to the TV's
+    storage) and nothing is uploaded to other people. Not in the TizenBrew module yet.
 - The sites are read **by the TV itself**: once installed, it needs no PC and no server. If the
   sites open on your computer, they should work on your TV too.
 - QINO ТВ, the live TV channels, films, series and TV recordings of [qino.live](https://qino.live/). It needs a qino.live account; you
